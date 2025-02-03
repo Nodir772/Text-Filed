@@ -27,9 +27,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  late String input;
   var controller = TextEditingController();
-  bool _obscureText = true;
 
   @override
   Widget build(BuildContext context) {
@@ -38,8 +36,6 @@ class _HomePageState extends State<HomePage> {
         child: SizedBox(
           width: 350,
           child: TextField(
-            obscureText: _obscureText,
-            obscuringCharacter: "*",
             inputFormatters: [LengthLimitingTextInputFormatter(60)],
             controller: controller,
             style: TextStyle(
@@ -50,20 +46,10 @@ class _HomePageState extends State<HomePage> {
             cursorWidth: 2,
             decoration: InputDecoration(
               counterText: "👨‍💻",
-              suffixIcon: IconButton(
-                icon: Icon(
-                  _obscureText ? Icons.visibility_off : Icons.visibility,
-                ),
-                onPressed: () {
-                  setState(() {
-                    _obscureText = !_obscureText;
-                  });
-                },
-              ),
               prefixText: "🔎 ",
-              label: Text("Paroli kirit---> [ ! ]"),
+              label: Text("So'z kiriting---> [ ! ]"),
               hintText: "Search",
-              helperText: "Brachka nima gap--->?",
+              helperText: "100 ball--->?",
               hintStyle: TextStyle(
                 fontWeight: FontWeight.bold,
                 color: Colors.black.withAlpha(128),
@@ -77,9 +63,79 @@ class _HomePageState extends State<HomePage> {
       ),
       floatingActionButton: IconButton(
         onPressed: () {
-          controller.text = "Nodiri etgani!";
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => OTPVerificationPage()),
+          );
         },
         icon: Icon(Icons.add),
+      ),
+    );
+  }
+}
+
+class OTPVerificationPage extends StatelessWidget {
+  OTPVerificationPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Enter Code"),
+        centerTitle: true,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "Enter the Code",
+              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 20),
+            Text(
+              "SMS Code",
+              style: TextStyle(fontSize: 18, color: Colors.grey),
+            ),
+            SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: List.generate(
+                4,
+                    (index) => Container(
+                  height: 60,
+                  width: 60,
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.black),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Center(
+                    child: Text(
+                      "1,0,0,0",
+                      style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: 30),
+            ElevatedButton(
+              onPressed: () {},
+              style: ElevatedButton.styleFrom(
+                minimumSize: Size(double.infinity, 50),
+                backgroundColor: Colors.green,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(25),
+                ),
+              ),
+              child: Text(
+                "Tugadi",
+                style: TextStyle(fontSize: 18, color: Colors.white),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
